@@ -1,3 +1,7 @@
+const fs = require("fs");
+
+// 1. YarnBall - scroll reactive
+fs.writeFileSync("src/components/YarnBall.jsx", `
 import React, { useRef, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Sphere, MeshWobbleMaterial, OrbitControls } from "@react-three/drei"
@@ -48,3 +52,6 @@ export default function YarnBall({ size = 320 }) {
     </div>
   )
 }
+`, {encoding:"utf8"});
+
+console.log("YarnBall written");

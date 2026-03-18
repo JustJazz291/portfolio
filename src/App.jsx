@@ -1,13 +1,16 @@
-﻿import React, { useState } from 'react'
-import Landing from './sections/Landing'
-import Hero from './sections/Hero'
-import About from './sections/About'
-import Skills from './sections/Skills'
-import Projects from './sections/Projects'
-import Achievements from './sections/Achievements'
-import Interests from './sections/Interests'
-import Contact from './sections/Contact'
-import './App.css'
+import React, { useState, Suspense } from "react"
+import Landing from "./sections/Landing"
+import Hero from "./sections/Hero"
+import About from "./sections/About"
+import Skills from "./sections/Skills"
+import Projects from "./sections/Projects"
+import Achievements from "./sections/Achievements"
+import Interests from "./sections/Interests"
+import Contact from "./sections/Contact"
+import FloatingNeedle from "./components/FloatingNeedle"
+import ParticleThreads from "./components/ParticleThreads"
+import ThreadSplines from "./components/ThreadSplines"
+import "./App.css"
 
 export default function App() {
   const [entered, setEntered] = useState(false)
@@ -15,24 +18,31 @@ export default function App() {
   const handleEnter = () => {
     setEntered(true)
     setTimeout(() => {
-      document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })
+      document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })
     }, 100)
   }
 
   return (
-    <div>
-      <Landing onEnter={handleEnter} />
-      {entered && (
-        <>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Achievements />
-          <Interests />
-          <Contact />
-        </>
-      )}
+    <div style={{ position: "relative" }}>
+      <Suspense fallback={null}>
+        <ParticleThreads />
+        <ThreadSplines />
+      </Suspense>
+      {entered && <FloatingNeedle />}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <Landing onEnter={handleEnter} />
+        {entered && (
+          <>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Achievements />
+            <Interests />
+            <Contact />
+          </>
+        )}
+      </div>
     </div>
   )
 }

@@ -1,61 +1,61 @@
-﻿import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
+import Typewriter from "../components/Typewriter"
 
 export default function Landing({ onEnter }) {
   const path1 = useRef(null)
   const path2 = useRef(null)
-  const path3 = useRef(null)
 
   useEffect(() => {
-    const paths = [path1.current, path2.current, path3.current]
-    paths.forEach((p, i) => {
+    [path1, path2].forEach((r, i) => {
+      const p = r.current
       if (!p) return
       const len = p.getTotalLength()
       p.style.strokeDasharray = len
       p.style.strokeDashoffset = len
       setTimeout(() => {
-        p.style.transition = (1.8 + i * 0.4) + 's ease'
+        p.style.transition = (1.6 + i * 0.5) + "s ease"
         p.style.strokeDashoffset = 0
-      }, 300 + i * 200)
+      }, 400 + i * 300)
     })
   }, [])
 
   return (
     <section id="landing" style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', textAlign: 'center', position: 'relative',
-      overflow: 'hidden', minHeight: '100vh'
+      minHeight: "100vh", display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center",
+      textAlign: "center", position: "relative", overflow: "hidden"
     }}>
-      <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} aria-hidden="true">
+      <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }} aria-hidden="true">
         <path ref={path1}
-          d="M -20 80 C 80 40, 200 120, 350 70 S 550 20, 700 90 S 900 150, 1100 80"
-          fill="none" stroke="#ff6b6b" strokeWidth="2" strokeDasharray="8 5" strokeLinecap="round" />
+          d="M -40 120 C 100 80, 280 160, 480 100 S 780 40, 1000 120 S 1200 180, 1440 100"
+          fill="none" stroke="#ff6b6b" strokeWidth="2" strokeDasharray="8 6" strokeLinecap="round" />
         <path ref={path2}
-          d="M -20 200 C 100 160, 250 240, 420 190 S 650 130, 820 210 S 1000 270, 1200 200"
-          fill="none" stroke="#4dabf7" strokeWidth="2" strokeDasharray="6 6" strokeLinecap="round" />
-        <path ref={path3}
-          d="M 50 350 C 180 310, 320 390, 500 340 S 720 280, 900 360 S 1100 420, 1300 350"
-          fill="none" stroke="#ffd43b" strokeWidth="1.5" strokeDasharray="4 8" strokeLinecap="round" />
+          d="M -40 280 C 120 240, 300 320, 520 260 S 820 200, 1060 280 S 1280 340, 1440 260"
+          fill="none" stroke="#4dabf7" strokeWidth="1.5" strokeDasharray="5 8" strokeLinecap="round" />
       </svg>
 
-      <div style={{ position: 'absolute', top: '10%', left: '8%', opacity: 0.12, fontSize: '5rem', userSelect: 'none' }}>
-        yarn
-      </div>
-      <div style={{ position: 'absolute', bottom: '15%', right: '10%', opacity: 0.08, fontSize: '4rem', userSelect: 'none' }}>
-        thread
-      </div>
-
-      <div style={{ position: 'relative', zIndex: 2 }}>
-        <p className="thread-label">a handmade story</p>
-        <h1 style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)', lineHeight: 1.15, marginBottom: '16px' }}>
-          Every thread<br />tells a story.
-        </h1>
-        <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', color: '#666', marginBottom: '48px', fontStyle: 'italic' }}>
-          Here's mine.
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        style={{ position: "relative", zIndex: 2, maxWidth: 600 }}
+      >
+        <p style={{ fontSize: "0.75rem", letterSpacing: 4, textTransform: "uppercase", color: "#ff6b6b", marginBottom: 24, fontStyle: "italic" }}>
+          a handmade story
         </p>
-        <button className="btn-stitch" onClick={onEnter}>
+        <Typewriter lines={["Every thread tells a story...", "Here's mine."]} speed={52} />
+        <motion.button
+          className="btn-stitch"
+          onClick={onEnter}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3.5 }}
+          style={{ marginTop: 48 }}
+        >
           Enter
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </section>
   )
 }

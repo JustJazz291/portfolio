@@ -1,66 +1,64 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
   --red: #ff6b6b; --blue: #4dabf7; --yellow: #ffd43b; --green: #69db7c;
-  --bg: #ffffff; --grid: #dcdcdc; --text: #1a1a2e;
+  --bg: #ffffff; --grid: #e8e8e8; --text: #1a1a2e;
 }
+
 html { scroll-behavior: smooth; }
+
 body {
   font-family: 'Lora', Georgia, serif;
   background-color: var(--bg);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 40px 40px;
   color: var(--text);
   overflow-x: hidden;
 }
-.section-reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.section-reveal.visible { opacity: 1; transform: translateY(0); }
+
 .btn-stitch {
-  display: inline-block; padding: 12px 36px; border: 3px dashed var(--red);
-  color: var(--red); font-size: 1.1rem; font-family: 'Lora', Georgia, serif;
-  letter-spacing: 2px; cursor: pointer; background: transparent;
+  display: inline-block; padding: 13px 40px;
+  border: 2.5px dashed var(--red); color: var(--red);
+  font-size: 1.05rem; font-family: 'Lora', Georgia, serif;
+  letter-spacing: 3px; cursor: pointer; background: transparent;
   transition: all 0.3s ease; text-decoration: none;
+  border-radius: 2px;
 }
-.btn-stitch:hover { background: var(--red); color: white; transform: scale(1.05) rotate(-1deg); }
+.btn-stitch:hover { background: var(--red); color: white; transform: scale(1.04) rotate(-0.8deg); }
+
 .patch-card {
-  background: white; border: 2px solid var(--blue); border-radius: 4px;
+  background: white; border: 2px dashed var(--blue); border-radius: 8px;
   padding: 24px; position: relative;
-  transform: perspective(600px) rotateX(1deg) rotateY(-1deg);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 3px 3px 0 var(--grid);
-}
-.patch-card::before {
-  content: ''; position: absolute; inset: 4px;
-  border: 1px dashed var(--blue); border-radius: 2px;
-  pointer-events: none; opacity: 0.5;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
 }
 .patch-card:hover {
-  transform: perspective(600px) rotateX(0deg) rotateY(0deg) translateY(-6px) scale(1.02);
-  box-shadow: 8px 12px 24px rgba(77,171,247,0.2);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(77,171,247,0.15);
 }
-section { min-height: 100vh; padding: 80px 5vw; position: relative; }
+
+section { position: relative; }
+
 h1, h2, h3 { font-family: 'Lora', Georgia, serif; }
-.thread-label { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; font-style: italic; }
-.section-title { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 40px; }
-@media (max-width: 768px) { section { padding: 60px 6vw; } .patch-card { transform: none; } }
-.draw-down-path {
-  stroke-dashoffset: 200;
-  animation: drawDown 2s ease 0.5s forwards;
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
+
+@keyframes threadWave {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(28px); }
+  100% { transform: translateX(0); }
+}
+
 @keyframes drawDown {
   from { stroke-dashoffset: 200; }
   to { stroke-dashoffset: 0; }
 }
-@keyframes threadWave {
-  0% { transform: translateX(0px); }
-  50% { transform: translateX(30px); }
-  100% { transform: translateX(0px); }
-}
-.thread-bg {
-  animation: threadWave 6s ease-in-out infinite;
-  opacity: 0.2;
-}
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+
+@media (max-width: 768px) {
+  section { padding: 60px 6vw !important; }
 }

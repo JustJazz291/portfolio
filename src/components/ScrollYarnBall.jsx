@@ -6,18 +6,6 @@ import { ScrollYarnMesh } from "./AnimatedYarnBall"
 const X_STOPS = [0,    0.12, 0.22, 0.34, 0.46, 0.58, 0.70, 0.82, 1.0]
 const X_VALS  = [50,   68,   30,   70,   28,   72,   30,   68,   50]
 
-// Build the SVG path string matching the waypoints (in vw/vh percent units)
-function buildPath(xStops, xVals) {
-  const pts = xStops.map((p, i) => ({ x: xVals[i], y: p * 100 }))
-  let d = `M ${pts[0].x}vw ${pts[0].y}vh`
-  for (let i = 1; i < pts.length; i++) {
-    const prev = pts[i - 1], curr = pts[i]
-    const cy = (prev.y + curr.y) / 2
-    d += ` C ${prev.x}vw ${cy}vh, ${curr.x}vw ${cy}vh, ${curr.x}vw ${curr.y}vh`
-  }
-  return d
-}
-
 // Red trailing thread SVG that draws progressively with scroll
 function TrailingThread({ scrollYProgress }) {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
@@ -38,7 +26,7 @@ function TrailingThread({ scrollYProgress }) {
         top: 0, left: 0,
         width: "100vw", height: "100vh",
         pointerEvents: "none",
-        zIndex: 9,
+        zIndex: 0,
         overflow: "visible"
       }}
       viewBox="0 0 100 100"

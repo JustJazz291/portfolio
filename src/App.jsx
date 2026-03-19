@@ -8,7 +8,6 @@ import Achievements from "./sections/Achievements"
 import Interests from "./sections/Interests"
 import Contact from "./sections/Contact"
 import FloatingNeedle from "./components/FloatingNeedle"
-import ParticleThreads from "./components/ParticleThreads"
 import ThreadSplines from "./components/ThreadSplines"
 import "./App.css"
 
@@ -25,7 +24,6 @@ export default function App() {
   return (
     <div style={{ position: "relative" }}>
       <Suspense fallback={null}>
-        <ParticleThreads />
         <ThreadSplines />
       </Suspense>
       {entered && <FloatingNeedle />}

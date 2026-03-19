@@ -1,39 +1,50 @@
-﻿import React from 'react'
-import { useScrollReveal } from '../components/useScrollReveal'
+import React from "react"
+import { motion } from "framer-motion"
+import ThreadPath from "../components/ThreadPath"
 
 export default function About() {
-  const ref = useScrollReveal()
   return (
-    <section id="about" style={{ position: 'relative', overflow: 'hidden' }}>
-      <svg width="100%" height="80" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} aria-hidden="true">
-        <path d="M 50% 0 C 48% 30, 52% 50, 50% 80"
-          fill="none" stroke="#ff6b6b" strokeWidth="2" strokeDasharray="5 4" strokeLinecap="round" />
-      </svg>
-      <div ref={ref} className="section-reveal" style={{ maxWidth: 760, margin: '0 auto', paddingTop: '40px' }}>
+    <section id="about" style={{ position: "relative", overflow: "hidden" }}>
+      <ThreadPath color="#69db7c" d="M10 40 Q 150 5 400 40 T 790 40" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+        style={{ maxWidth: 760, margin: "0 auto", paddingTop: "20px" }}
+      >
         <p className="thread-label">chapter 01</p>
         <h2 className="section-title">My Pattern</h2>
-        <div style={{
-          background: 'white', border: '2px solid #69db7c', borderRadius: 4,
-          padding: '36px', position: 'relative', boxShadow: '4px 4px 0 #dcdcdc'
-        }}>
-          <div style={{ position: 'absolute', inset: 6, border: '1px dashed #69db7c', borderRadius: 2, pointerEvents: 'none', opacity: 0.4 }} />
-          <p style={{ lineHeight: 1.9, fontSize: '1.05rem', color: '#333', marginBottom: 16 }}>
-            Hi, I am <strong>Janhavi Amit Shete</strong>, a Second-Year Electrical Engineering student at VJTI, Mumbai.
+
+        <motion.div
+          initial={{ opacity: 0, y: 60, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          style={{
+            background: "#ffffff",
+            border: "2px dashed #69db7c",
+            borderRadius: 6,
+            padding: "36px",
+            position: "relative",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.05)"
+          }}
+        >
+          <div style={{ position: "absolute", inset: 6, border: "1px dashed #69db7c", borderRadius: 4, pointerEvents: "none", opacity: 0.3 }} />
+          <h3 style={{ fontSize: "1.3rem", marginBottom: 4, color: "#1a1a2e" }}>Janhavi Amit Shete</h3>
+          <p style={{ fontSize: "0.85rem", color: "#ff6b6b", letterSpacing: 2, marginBottom: 20, fontStyle: "italic" }}>Electrical Engineering @ VJTI, Mumbai</p>
+          <p style={{ lineHeight: 1.9, fontSize: "1.02rem", color: "#333", marginBottom: 16 }}>
+            A tech enthusiast driven by the fusion of hardware and software, I explore everything from embedded systems and power electronics to web and AI innovations.
           </p>
-          <p style={{ lineHeight: 1.9, fontSize: '1.05rem', color: '#333', marginBottom: 16 }}>
-            I am deeply passionate about technology at the intersection of hardware and software, ranging from embedded systems and power electronics to modern web and AI-driven solutions.
+          <p style={{ lineHeight: 1.9, fontSize: "1.02rem", color: "#333", marginBottom: 16 }}>
+            Currently building a Web3-based security intelligence platform while pursuing a BS in Data Science from IIT Madras, I thrive on hands-on problem solving, simulations, and real-world system design.
           </p>
-          <p style={{ lineHeight: 1.9, fontSize: '1.05rem', color: '#333', marginBottom: 16 }}>
-            Currently, I am working on a Web3-based security intelligence platform while also pursuing a BS in Data Science from IIT Madras. Alongside, I actively explore simulation, system design, and real-world problem solving through hands-on projects.
+          <p style={{ lineHeight: 1.9, fontSize: "1.02rem", color: "#333" }}>
+            I enjoy open-source, experimenting with emerging tech, and transforming ideas into functional solutions — aiming to build intelligent, scalable systems that bridge the physical and digital world.
           </p>
-          <p style={{ lineHeight: 1.9, fontSize: '1.05rem', color: '#333', marginBottom: 16 }}>
-            I enjoy contributing to open-source, experimenting with new technologies, and turning ideas into functional systems.
-          </p>
-          <p style={{ lineHeight: 1.9, fontSize: '1.05rem', color: '#333' }}>
-            My goal is to grow into an engineer who builds impactful, intelligent, and scalable solutions that connect the physical and digital world.
-          </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

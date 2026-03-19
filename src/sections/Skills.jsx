@@ -1,5 +1,6 @@
 import React, { Suspense } from "react"
-import { useScrollReveal } from "../components/useScrollReveal"
+import { motion } from "framer-motion"
+import ThreadPath from "../components/ThreadPath"
 import SkillBadges3D from "../components/SkillBadges3D"
 
 const skillGroups = [
@@ -10,57 +11,64 @@ const skillGroups = [
   { label: "Core Areas", color: "#ff6b6b", skills: ["Power Electronics", "Embedded Systems", "Data Analysis", "Web3 and Cybersecurity"] }
 ]
 
-function SkillGroup({ group, index }) {
-  const ref = useScrollReveal()
-  return (
-    <div ref={ref} className="section-reveal" style={{
-      transitionDelay: (index * 0.12) + "s",
-      background: "white", border: "2px solid " + group.color,
-      borderRadius: 4, padding: "20px 24px", position: "relative",
-      boxShadow: "3px 3px 0 #dcdcdc"
-    }}>
-      <div style={{ position: "absolute", inset: 5, border: "1px dashed " + group.color, borderRadius: 2, opacity: 0.35, pointerEvents: "none" }} />
-      <h3 style={{ fontSize: "0.75rem", letterSpacing: 3, textTransform: "uppercase", color: group.color, marginBottom: 14 }}>
-        {group.label}
-      </h3>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {group.skills.map(s => (
-          <span key={s} style={{
-            padding: "4px 12px", border: "1.5px solid " + group.color,
-            borderRadius: 2, fontSize: "0.85rem", color: "#333",
-            background: group.color + "18"
-          }}>{s}</span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export default function Skills() {
-  const titleRef = useScrollReveal()
-  const badgeRef = useScrollReveal()
   return (
     <section id="skills" style={{ position: "relative", overflow: "hidden" }}>
-      <svg width="200" height="100" style={{ position: "absolute", top: 0, left: "10%", pointerEvents: "none" }} aria-hidden="true">
-        <path d="M 0 0 C 40 20, 80 60, 100 80 S 160 100, 200 70"
-          fill="none" stroke="#4dabf7" strokeWidth="2" strokeDasharray="6 5" strokeLinecap="round" />
-      </svg>
-      <div ref={titleRef} className="section-reveal" style={{ maxWidth: 900, margin: "0 auto" }}>
+      <ThreadPath color="#4dabf7" d="M10 60 Q 250 15 500 60 T 790 55" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        style={{ maxWidth: 900, margin: "0 auto" }}
+      >
         <p className="thread-label">chapter 02</p>
         <h2 className="section-title">Stitches I Know</h2>
-      </div>
+      </motion.div>
 
-      <div ref={badgeRef} className="section-reveal" style={{ maxWidth: 900, margin: "0 auto 40px" }}>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        style={{ maxWidth: 900, margin: "0 auto 40px" }}
+      >
         <Suspense fallback={<div style={{ height: 280, display: "flex", alignItems: "center", justifyContent: "center", color: "#aaa" }}>Loading badges...</div>}>
           <SkillBadges3D />
         </Suspense>
-      </div>
+      </motion.div>
 
       <div style={{
         maxWidth: 900, margin: "0 auto",
         display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 24
       }}>
-        {skillGroups.map((g, i) => <SkillGroup key={g.label} group={g} index={i} />)}
+        {skillGroups.map((g, i) => (
+          <motion.div
+            key={g.label}
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: i * 0.12 }}
+            style={{
+              background: "#ffffff", border: "2px dashed " + g.color,
+              borderRadius: 6, padding: "20px 24px", position: "relative",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.05)"
+            }}
+          >
+            <div style={{ position: "absolute", inset: 5, border: "1px dashed " + g.color, borderRadius: 4, opacity: 0.3, pointerEvents: "none" }} />
+            <h3 style={{ fontSize: "0.75rem", letterSpacing: 3, textTransform: "uppercase", color: g.color, marginBottom: 14 }}>{g.label}</h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {g.skills.map(s => (
+                <span key={s} style={{
+                  padding: "4px 12px", border: "1.5px solid " + g.color,
+                  borderRadius: 20, fontSize: "0.85rem", color: "#333",
+                  background: g.color + "18"
+                }}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   )
